@@ -1,0 +1,47 @@
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Elasticons demo</title>
+
+        <link rel="stylesheet" href="dist/css/elasticons.min.css">
+    </head>
+    <body>
+        <p>
+            <button id="icone" class="elasticon elasticon-hamburger" style="background-color: #0ec389">
+                <span></span>
+            </button>
+        </p>
+
+        <p>
+            <button>elasticon-hamburger</button>
+        </p>
+        <p>
+            <button>elasticon-plus</button>
+            <button>elasticon-cross</button>
+            <button>elasticon-tick</button>
+            <button>elasticon-square</button>
+            <button>elasticon-circle</button>
+        </p>
+        <p>
+            <button>elasticon-play</button>
+            <button>elasticon-reverse</button>
+        </p>
+        <p>
+            <button>elasticon-chevron-left</button>
+            <button>elasticon-chevron-right</button>
+        </p>
+    </body>
+    <script>
+        var boutons = Array.prototype.slice.call(document.querySelectorAll("button"));
+
+        for (var i=0; i<boutons.length; i++) {
+            boutons[i].addEventListener("click", function() {
+                var icone = document.getElementById("icone"),
+                    classe = this.innerHTML;
+                icone.removeAttribute("class");
+                icone.classList.add("elasticon");
+                icone.classList.add(classe);
+            });
+        }
+    </script>
+</html>
