@@ -24,13 +24,6 @@ $diagCoeff: 1.414213562; /* sqrt(2) = 1,414213562 */
   cursor: pointer;
   border: none;
 
-  box-shadow: inset ($icon-dimension / 4) 0 0 rgba(255, 255, 255, .15),
-              inset ($icon-dimension / 2) 0 0 rgba(255, 255, 255, .15),
-              inset ($icon-dimension * 3 / 4) 0 0 rgba(255, 255, 255, .15),
-              inset 0 ($icon-dimension / 4) 0 rgba(255, 255, 255, .15),
-              inset 0 ($icon-dimension / 2) 0 rgba(255, 255, 255, .15),
-              inset 0 ($icon-dimension * 3 / 4) 0 rgba(255, 255, 255, .15),;
-
   span {
       transform: translate3d(0 ,0, 0) rotate(0deg);
       border-radius: 0;
