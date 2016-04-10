@@ -1,18 +1,17 @@
-$icon-dimension: 48px;
-$stroke-width: 5px;
-$radius: $stroke-width / 2;
-$color: #fff;
+$icon-dimension: 600px;
+$stroke-width: 50px;
+$color: rgba(255, 255, 255, 1);
 
-$drawingZone: round($icon-dimension * 2 / 3);
-$margin: floor(($icon-dimension - $drawingZone) / 2);
-$diagCoeff: 1.414213562; /* sqrt(2) = 1,414213562 */
+$drawing-zone: round($icon-dimension * 2 / 3);
+$margin: floor(($icon-dimension - $drawing-zone) / 2);
+
 @mixin transition {
   transition: transform 0.4s cubic-bezier(0.70, -0.5, 0.25, 1.5),
               width 0.4s cubic-bezier(0.70, -0.5, 0.25, 1.5),
               height 0.4s cubic-bezier(0.70, -0.5, 0.25, 1.5),
               border-radius 0.4s cubic-bezier(0.70, -0.5, 0.25, 1.5),
-              box-shadow 0.4s ease,
-              opacity 0.2s ease;
+              transform-origin 0.4s cubic-bezier(0.70, -0.5, 0.25, 1.5),
+              box-shadow 0.3s ease;
 }
 
 .elasticon {
@@ -26,26 +25,29 @@ $diagCoeff: 1.414213562; /* sqrt(2) = 1,414213562 */
 
   span {
       transform: translate3d(0 ,0, 0) rotate(0deg);
-      border-radius: 0;
+      top: ($icon-dimension - $stroke-width) / 2;
+      left: $margin;
 
     &,
     &::before,
     &::after {
       position: absolute;
-      top: 0;
-      left: 0;
-      height: 0;
-      width: 0;
-      border: ($stroke-width / 2) solid $color;
-      border-radius: $radius;
+      height: $stroke-width;
+      width: $stroke-width;
+      box-shadow: inset $stroke-width 0 0 $color,
+                  inset ($stroke-width * -1) 0 0 $color,
+                  inset 0 $stroke-width 0 $color,
+                  inset 0 ($stroke-width * -1) 0 $color;
+      border-radius: $stroke-width / 2;
       display: block;
       opacity: 1;
-      box-shadow: inset 0 0 $stroke-width rgba($color, 0);
       @include transition;
     }
 
     &::before,
     &::after {
+      top: 0;
+      left: 0;
       content: "";
       display: block;
     }
@@ -53,173 +55,180 @@ $diagCoeff: 1.414213562; /* sqrt(2) = 1,414213562 */
 }
 
 .elasticon.elasticon-hamburger {
+  $width: $drawing-zone;
 
   span {
-    transform: translate3d($margin, $margin, 0);
+    transform: translate3d(0, 0, 0);
 
     &,
     &::before,
     &::after {
-      width: $drawingZone - $stroke-width;
+      width: $width;
     }
 
     &::before {
-      transform: translate3d(($stroke-width / -2), ($icon-dimension / 3 - $stroke-width), 0);
-      opacity: 1;
+      transform: translate3d(0, (($width - $stroke-width) / -2), 0);
     }
 
     &::after {
-      transform: translate3d(($stroke-width / -2), ($icon-dimension * 2 / 3 - 1.5 * $stroke-width), 0);
+      transform: translate3d(0, (($width - $stroke-width) / 2), 0);
     }
   }
 }
 
 .elasticon.elasticon-plus {
+  $width: $drawing-zone;
 
   span {
-    transform: translate3d(($margin), (($icon-dimension - $stroke-width) / 2), 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    box-shadow: none;
 
     &,
     &::before,
     &::after {
-      width: $drawingZone - $stroke-width;
+      width: $width;
     }
 
     &::before {
-      opacity: 0;
-      width: 0;
+      transform: translate3d(0, 0, 0) rotate(0deg);
     }
 
     &::after {
-      transform: translate3d(($stroke-width / -2), ($stroke-width / -2), 0) rotate(-90deg);
+      transform: translate3d(0, 0, 0) rotate(90deg);
     }
   }
 }
 
 .elasticon.elasticon-cross {
+  $width: $drawing-zone * 1.414213562 - $stroke-width / 2;
 
   span {
-    transform: translate3d(($margin - (($diagCoeff - 1) * ($drawingZone - $stroke-width) / 2)), (($icon-dimension - $stroke-width) / 2), 0) rotate(45deg);
+    transform: translate3d((($drawing-zone - $width) / 2), 0, 0) rotate(0deg);
+    box-shadow: none;
 
     &,
     &::before,
     &::after {
-      width: ($drawingZone - $stroke-width) * $diagCoeff;
+      width: $width;
     }
 
     &::before {
-      opacity: 0;
-      width: 0;
+      transform: translate3d(0, 0, 0) rotate(-45deg);
     }
 
     &::after {
-      transform: translate3d(($stroke-width / -2), ($stroke-width / -2), 0) rotate(-90deg);
+      transform: translate3d(0, 0, 0) rotate(45deg);
     }
   }
 }
 
 .elasticon.elasticon-play {
+  $width: $drawing-zone;
 
   span {
-    transform: translate3d(($margin), ($margin - $stroke-width / 4 + $drawingZone / 4), 0) rotate(30deg);
+    transform: translate3d(0, (($width - $stroke-width) / -4), 0) rotate(30deg);
 
     &,
     &::before,
     &::after {
-      width: $drawingZone - $stroke-width;
+      width: $width;
     }
 
     &::before {
-      transform: translate3d((($drawingZone - $stroke-width) / -4 - $stroke-width / 2), (($drawingZone - $stroke-width) * 0.866025404 / 2 - $stroke-width / 2), 0) rotate(60deg); /* cos30° = 0,866025404 */
+      transform: translate3d((($drawing-zone - $stroke-width) / -4), (($drawing-zone - $stroke-width) * .433012702), 0) rotate(60deg); /* cos30° / 2 = 0,433012702 */
       opacity: 1;
     }
 
     &::after {
-      transform: translate3d((($drawingZone - $stroke-width) / 4 - $stroke-width / 2), (($drawingZone - $stroke-width) * 0.866025404 / 2 - $stroke-width / 2), 0) rotate(-60deg);
+      transform: translate3d((($drawing-zone - $stroke-width) / 4), (($drawing-zone - $stroke-width) * .433012702), 0) rotate(-60deg); /* cos30° / 2 = 0,433012702 */
     }
   }
 }
 
 .elasticon.elasticon-reverse {
+  $width: $drawing-zone;
 
   span {
-    transform: translate3d($margin, ($margin + $drawingZone / 4 - $stroke-width / 4), 0) rotate(-30deg);
+    transform: translate3d(0, (($width - $stroke-width) / -4), 0) rotate(-30deg);
 
     &,
     &::before,
     &::after {
-      width: $drawingZone - $stroke-width;
+      width: $width;
     }
 
     &::before {
-      transform: translate3d((($drawingZone - $stroke-width) / -4 - $stroke-width / 2), (($drawingZone - $stroke-width) * 0.866025404 / 2 - $stroke-width / 2), 0) rotate(60deg); /* cos30° = 0,866025404 */
+      transform: translate3d((($drawing-zone - $stroke-width) / -4), (($drawing-zone - $stroke-width) * .433012702), 0) rotate(60deg); /* cos30° / 2 = 0,433012702 */
       opacity: 1;
     }
 
     &::after {
-      transform: translate3d((($drawingZone - $stroke-width) / 4 - $stroke-width / 2), (($drawingZone - $stroke-width) * 0.866025404 / 2 - $stroke-width / 2), 0) rotate(-60deg);
+      transform: translate3d((($drawing-zone - $stroke-width) / 4), (($drawing-zone - $stroke-width) * .433012702), 0) rotate(-60deg); /* cos30° / 2 = 0,433012702 */
     }
   }
 }
 
 .elasticon.elasticon-chevron-left {
+  $width : ($drawing-zone + $stroke-width / 2) * .707106781;
 
   span {
-    transform: translate3d((($icon-dimension - $drawingZone * $diagCoeff / 2 - $stroke-width / 2) / 2), ($drawingZone / 2 - .25 * $stroke-width), 0) rotate(-45deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    box-shadow: none;
 
     &,
     &::before,
     &::after {
-      width: ($drawingZone - $stroke-width) * $diagCoeff / 2;
+      width: $width;
     }
 
     &::before {
-      opacity: 0;
-      width: 0;
+      transform: translate3d((($drawing-zone - $width) / 2), (($width - $stroke-width) / -2.828427125), 0) rotate(-45deg); /* 2 * sqrt(2) = 2.828427125 */
     }
 
     &::after {
-      transform: translate3d((($drawingZone - $stroke-width) * $diagCoeff / -4 - $stroke-width / 2), (($drawingZone - $stroke-width) * $diagCoeff / 4 - $stroke-width / 2), 0) rotate(-90deg);
+      transform: translate3d((($drawing-zone - $width) / 2), (($width - $stroke-width) / 2.828427125), 0) rotate(45deg);
     }
   }
 }
 
 .elasticon.elasticon-chevron-right {
+  $width : ($drawing-zone + $stroke-width / 2) * .707106781;
 
   span {
-    transform: translate3d((($icon-dimension - $drawingZone * $diagCoeff / 2 - $stroke-width / 2) / 2), ($drawingZone / 2 - .25 * $stroke-width), 0) rotate(45deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    box-shadow: none;
 
     &,
     &::before,
     &::after {
-      width: ($drawingZone - $stroke-width) * $diagCoeff / 2;
+      width: $width;
     }
 
     &::before {
-      opacity: 0;
-      width: 0;
+      transform: translate3d((($drawing-zone - $width) / 2), (($width - $stroke-width) / -2.828427125), 0) rotate(45deg); /* 2 * sqrt(2) = 2.828427125 */
     }
 
     &::after {
-      transform: translate3d((($drawingZone - $stroke-width) * $diagCoeff / 4 - $stroke-width / 2), (($drawingZone - $stroke-width) * $diagCoeff / 4 - $stroke-width / 2), 0) rotate(-270deg);
+      transform: translate3d((($drawing-zone - $width) / 2), (($width - $stroke-width) / 2.828427125), 0) rotate(-45deg);
     }
-  }
-}
+  }}
 
 .elasticon.elasticon-tick {
+  $width: ($drawing-zone + $stroke-width) * 0.409977611;
 
   span {
-    transform: translate3d(($margin - (2 - $diagCoeff) * (($drawingZone - $stroke-width) * 0.409977611) / 4), (($icon-dimension - $stroke-width) / 2), 0) rotate(60deg);
-    width: ($drawingZone - $stroke-width) * 0.409977611;
+    transform: translate3d(($width * .353553391 - $stroke-width / 2), 0, 0) rotate(-30deg); /* sqrt(2) / 4 = 0.353553391 */
+    box-shadow: none;
+
 
     &::before {
-      opacity: 0;
-      width: 0;
+      transform: translate3d((($width - $stroke-width) / -2), 0, 0) rotate(90deg);
+      width: $width;
     }
 
     &::after {
-      transform: translate3d(($stroke-width / -2), (($drawingZone - $stroke-width) * -0.409977611 + $stroke-width / -2), 0) rotate(-90deg);
-      width: ($drawingZone - $stroke-width) * 0.819955221;
+      transform: translate3d(0, (($width - $stroke-width) / 2), 0) rotate(0deg);
+      width: $width * 2;
     }
   }
 }
@@ -227,27 +236,21 @@ $diagCoeff: 1.414213562; /* sqrt(2) = 1,414213562 */
 .elasticon.elasticon-square {
 
   span {
-    transform: translate3d($margin, $margin, 0) rotate(0deg);
-    height : $drawingZone - $stroke-width;
-    box-shadow: inset ($stroke-width / 2) 0 0 $color,
-                inset 0 ($stroke-width / 2) 0 $color,
-                inset ($stroke-width / -2) 0 0 $color,
-                inset 0 ($stroke-width / -2) 0 $color;
+    transform: translate3d(0, (($drawing-zone - $stroke-width) / -2), 0) rotate(0deg);
+    height : $drawing-zone;
 
     &,
     &::before,
     &::after {
-      width: $drawingZone - $stroke-width;
+      width: $drawing-zone;
     }
 
     &::before {
-      opacity: 0;
-      width: 0;
+      box-shadow: none;
     }
 
     &::after {
-      opacity: 0;
-      width: 0;
+      box-shadow: none;
     }
   }
 }
@@ -255,18 +258,14 @@ $diagCoeff: 1.414213562; /* sqrt(2) = 1,414213562 */
 .elasticon.elasticon-circle {
 
   span {
-    transform: translate3d($margin, $margin, 0) rotate(0deg);
-    height : $drawingZone - $stroke-width;
-    box-shadow: inset ($stroke-width / 2) 0 0 $color,
-                inset 0 ($stroke-width / 2) 0 $color,
-                inset ($stroke-width / -2) 0 0 $color,
-                inset 0 ($stroke-width / -2) 0 $color;
-    border-radius: $drawingZone / 2;
+    transform: translate3d(0, (($drawing-zone - $stroke-width) / -2), 0) rotate(0deg);
+    height : $drawing-zone;
+    border-radius: $drawing-zone / 2;
 
     &,
     &::before,
     &::after {
-      width: $drawingZone - $stroke-width;
+      width: $drawing-zone;
     }
 
     &::before {
