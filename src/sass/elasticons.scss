@@ -1,5 +1,5 @@
 $icon-dimension: 600px;
-$stroke-width: 50px;
+$stroke-width: 1px;
 $color: rgba(255, 255, 255, 1);
 
 $drawing-zone: round($icon-dimension * 2 / 3);
@@ -234,48 +234,66 @@ $margin: floor(($icon-dimension - $drawing-zone) / 2);
 }
 
 .elasticon.elasticon-square {
+  $width: $drawing-zone;
 
   span {
     transform: translate3d(0, (($drawing-zone - $stroke-width) / -2), 0) rotate(0deg);
-    height : $drawing-zone;
+    height : $width;
 
-    &,
-    &::before,
-    &::after {
-      width: $drawing-zone;
+    & {
+      width: $width;
     }
 
     &::before {
       box-shadow: none;
+      width: $stroke-width;
     }
 
     &::after {
       box-shadow: none;
+      width: $stroke-width;
     }
   }
 }
 
 .elasticon.elasticon-circle {
+  $width: $drawing-zone;
 
   span {
     transform: translate3d(0, (($drawing-zone - $stroke-width) / -2), 0) rotate(0deg);
-    height : $drawing-zone;
-    border-radius: $drawing-zone / 2;
-
-    &,
-    &::before,
-    &::after {
-      width: $drawing-zone;
-    }
+    height : $width;
+    border-radius: $width / 2;
+    width: $width;
 
     &::before {
-      opacity: 0;
-      width: 0;
+      box-shadow: none;
+      width: $stroke-width;
     }
 
     &::after {
-      opacity: 0;
-      width: 0;
+      box-shadow: none;
+      width: $stroke-width;
+    }
+  }
+}
+
+.elasticon.elasticon-search {
+  $width: $drawing-zone * .377370478;
+
+  span {
+    box-shadow: none;
+    width: $stroke-width;
+
+    &::before {
+      transform: translate3d(0, (($drawing-zone - $stroke-width) / -2), 0) rotate(0deg);
+      height : $width * 2 + $stroke-width / 2;
+      width: $width * 2 + $stroke-width / 2;
+      border-radius: 50%;
+    }
+
+    &::after {
+      transform: translate3d((($drawing-zone + $width * .390524292 - $stroke-width * .292893219) / 2), (($drawing-zone / 2 + $width * .390524292 - $stroke-width * .292893219) / 2), 0) rotate(45deg);
+      width: $width * 4 / 3;
     }
   }
 }
