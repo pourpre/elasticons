@@ -48,3 +48,4 @@ Initial inspiration from [jonsuh's Hamburgers](https://github.com/jonsuh/hamburg
 - reverse
 - chevron-left
 - chevron-right
+- search
